@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //**--------Showing details about the Ball-----------**
-        Details.text = "   Stats" +
+        Details.text = "       Stats" +
                        "\n\nScore = " + Score + 
                        "\n\nShot number = " + TimePlayed +
                        "\n\nPins left = " + Pins +
