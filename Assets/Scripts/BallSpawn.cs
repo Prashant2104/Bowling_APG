@@ -8,9 +8,11 @@ public class BallSpawn : MonoBehaviour
 
     public void BallReset()
     {
+        //**------------Randomizing the Ball position and rotation--------------**
         xPos = Random.Range(-0.65f, 0.65f);
         yRot = Random.Range(-4.5f, 4.5f);
         transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
         transform.rotation = Quaternion.Euler(transform.rotation.x, yRot, transform.rotation.z);
+        //**------------Randomizing the Ball position and rotation--------------**
     }
 }

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Pins : MonoBehaviour
 {
-    private GameManager score;
+    private GameManager GM;
 
     private void Start()
     {
-        score = FindObjectOfType<GameManager>();
+        gameObject.SetActive(true);
+        GM = FindObjectOfType<GameManager>();
     }
     private void Update()
     {
@@ -21,14 +22,15 @@ public class Pins : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Alley"))
         {
-            score.Score++;
             StartCoroutine(Wait());
         }
     }
 
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
+        GM.Score++;
+        GM.Pins--;
     }
 }

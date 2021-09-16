@@ -32,6 +32,10 @@ public class Ball : MonoBehaviour
         {
             Shoot();
         }
+        if(PlayTime == false && rb.velocity.z < 0.02f)
+        {
+            StartPos();
+        }
     }
     private void FixedUpdate()
     {
@@ -86,6 +90,7 @@ public class Ball : MonoBehaviour
     }
     public void StartPos()
     {
+        //**------------Reseting the Ball--------------**
         FindObjectOfType<GameManager>().TimePlayed++;
         yRotation = 0;
         yRotation = Startpos.rotation.y;
@@ -94,16 +99,22 @@ public class Ball : MonoBehaviour
         rb.velocity = new Vector3(0, 0, 0);
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         Arrow.SetActive(true);
-        PlayTime = true;
+        StartCoroutine(Wait());
+        //**------------Reseting the Ball--------------**
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.55f);
         FindObjectOfType<GameManager>().TurnOver();
     }
 
-    private void OnCollisionExit(Collision collision)
+        private void OnCollisionExit(Collision collision)
     {
         if(collision.gameObject.CompareTag("Outside"))
         {
             FindObjectOfType<BallSpawn>().BallReset();
             StartPos();
+            PlayTime = true;
         }
     }
 }

@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public int Score, TimePlayed;
+    public int Score, TimePlayed, Pins;
     public GameObject B_Ball, GameOverPanel, GamePanel;
     public Text ShowScore, Details;
 
@@ -13,34 +14,56 @@ public class GameManager : MonoBehaviour
     {
         Score = 0;
         TimePlayed = 1;
+        Pins = 10;
         GameOverPanel.SetActive(false);
         GamePanel.SetActive(true);
     }
     private void Update()
     {
-        Details.text = "Score = " + Score + 
+        //**--------Showing details about the Ball-----------**
+        Details.text = "   Stats" +
+                       "\n\nScore = " + Score + 
                        "\n\nShot number = " + TimePlayed +
-                       "\n\nPosition = " +(decimal)B_Ball.transform.position.x + 
-                       "\n\nRotation = " + (decimal)B_Ball.transform.rotation.y + 
-                       "\n\nSpeed = " + B_Ball.GetComponent<Rigidbody>().velocity;
-
-        if(Input.GetKey(KeyCode.Return))
+                       "\n\nPins left = " + Pins +
+                       "\n\nPosition = " + B_Ball.transform.position.x.ToString("F3") + 
+                       "\n\nRotation = " + B_Ball.transform.rotation.y.ToString("F3") + 
+                       "\n\nSpeed = " + B_Ball.GetComponent<Rigidbody>().velocity.z.ToString("F3");
+        //**--------Showing details about the Ball-----------**
+        ////////////////////////////////////////////////////
+        //**------------Reseting the game--------------**
+        if (Input.GetKey(KeyCode.Return) && GameOverPanel.activeInHierarchy == true)
         {
-            Score = 0;
+            SceneManager.LoadScene(0);
+            /*Score = 0;
             TimePlayed = 0;
             GameOverPanel.SetActive(false);
             GamePanel.SetActive(true);
-            FindObjectOfType<Ball>().PlayTime = true;
+            FindObjectOfType<Ball>().PlayTime = true;*/
         }
+        //**------------Reseting the game--------------**
     }
     public void TurnOver()
     {
-        if (TimePlayed > 2 || Score == 10)
+        if (TimePlayed > 2)
         {
             FindObjectOfType<Ball>().PlayTime = false;
             GameOverPanel.SetActive(true);
-            GamePanel.SetActive(true);
+            GamePanel.SetActive(false);
             ShowScore.text = Score.ToString();
+        }
+        if (TimePlayed > 2 && Score == 10)
+        {
+            FindObjectOfType<Ball>().PlayTime = false;
+            GameOverPanel.SetActive(true);
+            GamePanel.SetActive(false);
+            ShowScore.text = "Stride";
+        }
+        if (TimePlayed == 2 && Score == 10)
+        {
+            FindObjectOfType<Ball>().PlayTime = false;
+            GameOverPanel.SetActive(true);
+            GamePanel.SetActive(false);
+            ShowScore.text = "Strike";
         }
     }
 }
