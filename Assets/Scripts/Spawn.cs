@@ -5,11 +5,10 @@ using UnityEngine;
 public class Spawn : MonoBehaviour
 {
     public GameObject Pins;
-    //public GameObject Ball;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             Debug.Log("Spawn reset");
             ResetPins();
@@ -24,9 +23,4 @@ public class Spawn : MonoBehaviour
         Pins.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         Pins.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
-    /*public void ResetBall()
-    {
-        Ball.transform.position = gameObject.transform.position;
-        Ball.transform.rotation = gameObject.transform.rotation;
-    }*/
 }

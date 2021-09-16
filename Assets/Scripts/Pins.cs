@@ -17,22 +17,18 @@ public class Pins : MonoBehaviour
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Outside"))
-        {
-            score.Score++;
-            gameObject.SetActive(false);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.CompareTag("Alley"))
         {
             score.Score++;
-            gameObject.SetActive(false);
+            StartCoroutine(Wait());
         }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
     }
 }
