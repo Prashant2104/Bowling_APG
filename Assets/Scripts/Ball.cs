@@ -63,7 +63,7 @@ public class Ball : MonoBehaviour
                 yRotation -= 0.1f;
             }
             yRotation = Mathf.Clamp(yRotation, -7, 7);
-            transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, yRotation, transform.rotation.z);
             //**--------Rotating in Y-axis-----------**
             /////////////////////////////////////////
             //**---------Setting speed------------**
